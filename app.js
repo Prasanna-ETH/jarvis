@@ -3,11 +3,9 @@ const content = document.querySelector('.content');
 
 function speak(text) {
     const text_speak = new SpeechSynthesisUtterance(text);
-
     text_speak.rate = 1;
     text_speak.volume = 1;
     text_speak.pitch = 1;
-
     window.speechSynthesis.speak(text_speak);
 }
 
@@ -47,13 +45,22 @@ btn.addEventListener('click', () => {
 function takeCommand(message) {
     if (message.includes('hey') || message.includes('hello')) {
         speak("Hello Sir, How May I Help You?");
-    } else if (message.includes("open google")) {
+    } else if (message.includes('how are you')) {
+        speak("I'm doing great, thank you! How about you?");
+    } else if (message.includes('tell me a joke')) {
+        const jokes = [
+            "Why don't scientists trust atoms? Because they make up everything!",
+            "Why did the scarecrow win an award? Because he was outstanding in his field!",
+        ];
+        const joke = jokes[Math.floor(Math.random() * jokes.length)];
+        speak(joke);
+    } else if (message.includes('open google')) {
         window.open("https://google.com", "_blank");
         speak("Opening Google...");
-    } else if (message.includes("open youtube")) {
+    } else if (message.includes('open youtube')) {
         window.open("https://youtube.com", "_blank");
         speak("Opening Youtube...");
-    } else if (message.includes("open facebook")) {
+    } else if (message.includes('open facebook')) {
         window.open("https://facebook.com", "_blank");
         speak("Opening Facebook...");
     } else if (message.includes('what is') || message.includes('who is') || message.includes('what are')) {
@@ -76,9 +83,17 @@ function takeCommand(message) {
         window.open('Calculator:///');
         const finalText = "Opening Calculator";
         speak(finalText);
+    } else if (message.includes('play music')) {
+        window.open("https://music.youtube.com", "_blank");
+        speak("Playing music on YouTube Music...");
+    } else if (message.includes('weather')) {
+        window.open("https://www.google.com/search?q=weather", "_blank");
+        speak("Here's the weather forecast for your location.");
+    } else if (message.includes('news')) {
+        window.open("https://news.google.com", "_blank");
+        speak("Here are the latest news updates.");
     } else {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
-        const finalText = "I found some information for " + message + " on Google";
-        speak(finalText);
+        speak("I found some information for " + message + " on Google.");
     }
 }
